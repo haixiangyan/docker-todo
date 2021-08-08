@@ -16,6 +16,7 @@ const App = () => {
   const [count, setCount] = useState(0);
   const [todoList, setTodoList] = useState<Todo[]>([]);
 
+  // 添加 todo
   const addTodo = async () => {
     await http.post('/todo', {
       title: newTodoTitle,
@@ -24,12 +25,14 @@ const App = () => {
     await fetchTodoList();
   }
 
+  // 获取访问量，并添加一个访问量
   const fetchCount = async () => {
     await http.post('/count');
     const { data } = await http.get('/count');
     setCount(data.myCount);
   }
 
+  // 获取 todo 列表
   const fetchTodoList = async () => {
     const { data } = await http.get('/todo');
     setTodoList(data.todoList);
@@ -42,9 +45,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <header>
-        网站访问量：{count}
-      </header>
+      <header>网站访问量：{count}</header>
 
       <ul>
         {todoList.map(todo => (
