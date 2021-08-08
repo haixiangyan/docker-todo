@@ -13,10 +13,13 @@
     "http-errors": "~1.6.3",
     "ioredis": "^4.27.7",
     "jade": "~1.11.0",
+    "mariadb": "^2.5.4",
     "morgan": "~1.9.1",
-    "node-redis": "^0.1.7"
+    "node-redis": "^0.1.7",
+    "sequelize": "^6.6.5"
   },
   "devDependencies": {
-    "@types/ioredis": "^4.26.7"
+    "@types/ioredis": "^4.26.7",
+    "@types/sequelize": "^4.28.10"
   }
 }
