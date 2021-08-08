@@ -3,6 +3,7 @@ const express = require("express");
 
 const router = express.Router();
 
+// 连接数据库
 const sequelize = new Sequelize({
   host: 'localhost',
   database: 'docker_todo',
@@ -11,6 +12,7 @@ const sequelize = new Sequelize({
   dialect: 'mariadb',
 });
 
+// 定义 todo model
 const Todo = sequelize.define('Todo', {
   id: {
     type: Sequelize.INTEGER,
@@ -21,11 +23,13 @@ const Todo = sequelize.define('Todo', {
   status: { type: DataTypes.STRING }
 }, {});
 
+// 同步数据库结构
 sequelize.sync({ force: true }).then(() => {
   console.log('已同步');
 });
 
 router.get('/', async (req, res) => {
+  // 获取 todo list
   const todoList = await Todo.findAll();
   res.json({ todoList });
 })
@@ -33,6 +37,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res, next) => {
   const { title, status } = req.body;
 
+  // 创建一个 todo
   const newTodo = await Todo.create({
     title,
     status: status || 'todo',

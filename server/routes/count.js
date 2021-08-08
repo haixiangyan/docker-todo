@@ -2,6 +2,8 @@ const express = require('express');
 const Redis = require("ioredis");
 
 const router = express.Router();
+
+// 连接 redis
 const redis = new Redis({
   port: 6379,
   host: "127.0.0.1",
