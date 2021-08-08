@@ -5,7 +5,7 @@ const router = express.Router();
 
 // 连接数据库
 const sequelize = new Sequelize({
-  host: 'localhost',
+  host: process.env.NODE_ENV === 'docker' ? 'docker-todo-mariadb' : "127.0.0.1" ,
   database: 'docker_todo',
   username: 'root',
   password: '123456',
@@ -34,7 +34,7 @@ router.get('/', async (req, res) => {
   res.json({ todoList });
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', async (req, res) => {
   const { title, status } = req.body;
 
   // 创建一个 todo

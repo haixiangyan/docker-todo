@@ -1,0 +1,17 @@
+version: '3'
+services:
+  mariadb:
+    image: mariadb
+    container_name: 'docker-todo-mariadb'
+    environment:
+      MARIADB_ROOT_PASSWORD: '123456'
+      MARIADB_DATABASE: 'docker_todo'
+    ports:
+      - '3306:3306'
+    restart: always
+  redis:
+    image: redis
+    container_name: 'docker-todo-redis'
+    ports:
+      - '6379:6379'
+    restart: always

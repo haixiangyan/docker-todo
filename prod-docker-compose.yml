@@ -1,0 +1,48 @@
+version: '3'
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: 'docker-todo-client'
+    # 暴露端口
+    expose:
+      - 3000
+    # 暴露端口
+    ports:
+      - '3000:3000'
+    depends_on:
+      - server
+    restart: always
+  server:
+    # 构建目录
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    # 容器名
+    container_name: 'docker-todo-server'
+    # 暴露端口
+    expose:
+      - 4200
+    # 端口映射
+    ports:
+      - '4200:4200'
+    restart: always
+    depends_on:
+      - mariadb
+      - redis
+  mariadb:
+    image: mariadb
+    container_name: 'docker-todo-mariadb'
+    environment:
+      MARIADB_ROOT_PASSWORD: '123456'
+      MARIADB_DATABASE: 'docker_todo'
+    ports:
+      - '3306:3306'
+    restart: always
+  redis:
+    image: redis
+    container_name: 'docker-todo-redis'
+    ports:
+      - '6379:6379'
+    restart: always

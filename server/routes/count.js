@@ -6,10 +6,10 @@ const router = express.Router();
 // 连接 redis
 const redis = new Redis({
   port: 6379,
-  host: "127.0.0.1",
+  host: process.env.NODE_ENV === 'docker' ? 'docker-todo-redis' : "127.0.0.1" ,
 });
 
-router.get('/', async (req, res, next) => {
+router.get('/', async (req, res) => {
   const count = Number(await redis.get('myCount')) || 0;
 
   res.json({ myCount: count })
